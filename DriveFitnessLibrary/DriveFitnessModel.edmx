@@ -1,0 +1,346 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище drivefitnessModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Attendance">
+          <Key>
+            <PropertyRef Name="ClientId" />
+            <PropertyRef Name="DateVisit" />
+          </Key>
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="DateVisit" Type="date" Nullable="false" />
+          <Property Name="Payment" Type="ntext" />
+          <Property Name="AttendancePrice" Type="real" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupId" Type="int" Nullable="false" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="45" />
+          <Property Name="ClientLastname" Type="nvarchar" MaxLength="45" />
+          <Property Name="ClientBirthday" Type="date" />
+          <Property Name="ClientEmail" Type="ntext" />
+          <Property Name="ClientTelephone" Type="ntext" />
+          <Property Name="SubscriptionId" Type="int" />
+        </EntityType>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="GroupId" />
+          </Key>
+          <Property Name="GroupId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupName" Type="ntext" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="ScheduleId" />
+          </Key>
+          <Property Name="ScheduleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupId" Type="int" Nullable="false" />
+          <Property Name="Day" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Time" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subscription">
+          <Key>
+            <PropertyRef Name="SubscriptionId" />
+          </Key>
+          <Property Name="SubscriptionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubscriptionCountExcercise" Type="int" Nullable="false" />
+          <Property Name="SubscriptionPrice" Type="real" Nullable="false" />
+          <Property Name="SubscriptionDate" Type="date" Nullable="false" />
+          <Property Name="ClientSubscriptionId" Type="int" Nullable="false" />
+          <Property Name="SubscriptionCloseDate" Type="date" />
+        </EntityType>
+        <Association Name="FK_Attendance_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="Attendance">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clients_Groups">
+          <End Role="Group" Type="Self.Group" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="GroupId" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clients_Subscription">
+          <End Role="Subscription" Type="Self.Subscription" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subscription">
+              <PropertyRef Name="SubscriptionId" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="SubscriptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_Group">
+          <End Role="Group" Type="Self.Group" Multiplicity="1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="GroupId" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище drivefitnessModelContainer">
+          <EntitySet Name="Attendance" EntityType="Self.Attendance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Group" EntityType="Self.Group" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subscription" EntityType="Self.Subscription" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Attendance_Client" Association="Self.FK_Attendance_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Attendance" EntitySet="Attendance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clients_Groups" Association="Self.FK_Clients_Groups">
+            <End Role="Group" EntitySet="Group" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clients_Subscription" Association="Self.FK_Clients_Subscription">
+            <End Role="Subscription" EntitySet="Subscription" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_Group" Association="Self.FK_Schedule_Group">
+            <End Role="Group" EntitySet="Group" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="drivefitnessModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Attendance">
+          <Key>
+            <PropertyRef Name="ClientId" />
+            <PropertyRef Name="DateVisit" />
+          </Key>
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="DateVisit" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Payment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AttendancePrice" Type="Single" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Attendance_Client" FromRole="Attendance" ToRole="Client" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupId" Type="Int32" Nullable="false" />
+          <Property Name="ClientName" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="ClientLastname" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="ClientBirthday" Type="DateTime" Precision="0" />
+          <Property Name="ClientEmail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClientTelephone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SubscriptionId" Type="Int32" />
+          <NavigationProperty Name="Attendance" Relationship="Self.FK_Attendance_Client" FromRole="Client" ToRole="Attendance" />
+          <NavigationProperty Name="Group" Relationship="Self.FK_Clients_Groups" FromRole="Client" ToRole="Group" />
+          <NavigationProperty Name="Subscription" Relationship="Self.FK_Clients_Subscription" FromRole="Client" ToRole="Subscription" />
+        </EntityType>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="GroupId" />
+          </Key>
+          <Property Name="GroupId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Clients_Groups" FromRole="Group" ToRole="Client" />
+          <NavigationProperty Name="Schedule" Relationship="Self.FK_Schedule_Group" FromRole="Group" ToRole="Schedule" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="ScheduleId" />
+          </Key>
+          <Property Name="ScheduleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupId" Type="Int32" Nullable="false" />
+          <Property Name="Day" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Group" Relationship="Self.FK_Schedule_Group" FromRole="Schedule" ToRole="Group" />
+        </EntityType>
+        <EntityType Name="Subscription">
+          <Key>
+            <PropertyRef Name="SubscriptionId" />
+          </Key>
+          <Property Name="SubscriptionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubscriptionCountExcercise" Type="Int32" Nullable="false" />
+          <Property Name="SubscriptionPrice" Type="Single" Nullable="false" />
+          <Property Name="SubscriptionDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ClientSubscriptionId" Type="Int32" Nullable="false" />
+          <Property Name="SubscriptionCloseDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Clients_Subscription" FromRole="Subscription" ToRole="Client" />
+        </EntityType>
+        <Association Name="FK_Attendance_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="Attendance">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clients_Groups">
+          <End Role="Group" Type="Self.Group" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="GroupId" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clients_Subscription">
+          <End Role="Subscription" Type="Self.Subscription" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subscription">
+              <PropertyRef Name="SubscriptionId" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="SubscriptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_Group">
+          <End Role="Group" Type="Self.Group" Multiplicity="1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="GroupId" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DrivefitnessContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Attendance" EntityType="Self.Attendance" />
+          <EntitySet Name="Client" EntityType="Self.Client" />
+          <EntitySet Name="Group" EntityType="Self.Group" />
+          <EntitySet Name="Schedule" EntityType="Self.Schedule" />
+          <EntitySet Name="Subscription" EntityType="Self.Subscription" />
+          <AssociationSet Name="FK_Attendance_Client" Association="Self.FK_Attendance_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Attendance" EntitySet="Attendance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clients_Groups" Association="Self.FK_Clients_Groups">
+            <End Role="Group" EntitySet="Group" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clients_Subscription" Association="Self.FK_Clients_Subscription">
+            <End Role="Subscription" EntitySet="Subscription" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_Group" Association="Self.FK_Schedule_Group">
+            <End Role="Group" EntitySet="Group" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище drivefitnessModelContainer" CdmEntityContainer="DrivefitnessContext">
+          <EntitySetMapping Name="Attendance">
+            <EntityTypeMapping TypeName="drivefitnessModel.Attendance">
+              <MappingFragment StoreEntitySet="Attendance">
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="DateVisit" ColumnName="DateVisit" />
+                <ScalarProperty Name="Payment" ColumnName="Payment" />
+                <ScalarProperty Name="AttendancePrice" ColumnName="AttendancePrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="drivefitnessModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="ClientLastname" ColumnName="ClientLastname" />
+                <ScalarProperty Name="ClientBirthday" ColumnName="ClientBirthday" />
+                <ScalarProperty Name="ClientEmail" ColumnName="ClientEmail" />
+                <ScalarProperty Name="ClientTelephone" ColumnName="ClientTelephone" />
+                <ScalarProperty Name="SubscriptionId" ColumnName="SubscriptionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Group">
+            <EntityTypeMapping TypeName="drivefitnessModel.Group">
+              <MappingFragment StoreEntitySet="Group">
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schedule">
+            <EntityTypeMapping TypeName="drivefitnessModel.Schedule">
+              <MappingFragment StoreEntitySet="Schedule">
+                <ScalarProperty Name="ScheduleId" ColumnName="ScheduleId" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subscription">
+            <EntityTypeMapping TypeName="drivefitnessModel.Subscription">
+              <MappingFragment StoreEntitySet="Subscription">
+                <ScalarProperty Name="SubscriptionId" ColumnName="SubscriptionId" />
+                <ScalarProperty Name="SubscriptionCountExcercise" ColumnName="SubscriptionCountExcercise" />
+                <ScalarProperty Name="SubscriptionPrice" ColumnName="SubscriptionPrice" />
+                <ScalarProperty Name="SubscriptionDate" ColumnName="SubscriptionDate" />
+                <ScalarProperty Name="ClientSubscriptionId" ColumnName="ClientSubscriptionId" />
+                <ScalarProperty Name="SubscriptionCloseDate" ColumnName="SubscriptionCloseDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

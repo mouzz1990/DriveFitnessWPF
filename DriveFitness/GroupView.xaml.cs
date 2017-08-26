@@ -1,4 +1,5 @@
 ﻿using DriveFitnessLibrary;
+using DriveFitnessLibrary.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,21 +12,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace DriveFitness
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для GroupView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class GroupView : Window
     {
-        public MainWindow()
+        public GroupView()
         {
             InitializeComponent();
+            DataContext = new GroupViewModel();
         }
-
-        
     }
 }

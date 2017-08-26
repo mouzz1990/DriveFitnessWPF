@@ -1,0 +1,128 @@
+﻿<Window x:Class="DriveFitness.GroupView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DriveFitness"
+        mc:Ignorable="d"
+        Title="GroupView" Height="400" Width="600" FontSize="16" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.3*"/>
+            <ColumnDefinition Width="0.7*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            
+            <ListBox Grid.Row="0" Margin="3" ItemsSource="{Binding Groups}" 
+                     SelectedItem="{Binding SelectedGroup}"
+                     IsEnabled="{Binding IsDataChanged, UpdateSourceTrigger=PropertyChanged}"
+                     >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding GroupName}"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                
+            </ListBox>
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                <Button  Width="30" Height="30" Margin="3" Command="{Binding RemoveGroupCommand}">-</Button>
+                <Button  Width="30" Height="30" Margin="3" Command="{Binding ShowNewGroupPopup}" CommandParameter="{Binding ElementName=popNewGroup}">+</Button>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+        <StackPanel>
+            
+            <GroupBox Header="Информация о группе" Margin="5">
+                    <StackPanel Margin="5">
+                        <StackPanel>
+                            <StackPanel DataContext="{Binding SelectedGroup, UpdateSourceTrigger=PropertyChanged}" >
+                                <TextBlock>Наименование группы:</TextBlock>
+                                <TextBox Text="{Binding GroupName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            </StackPanel>
+                        </StackPanel>
+                        <TextBlock Margin="0 10 0 5">Расписание занятий:</TextBlock>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.5*"/>
+                                <ColumnDefinition Width="0.5*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="40"/>
+                            </Grid.RowDefinitions>
+                            <ListBox Grid.Column="0" ItemsSource="{Binding SchedulesObservable, UpdateSourceTrigger=PropertyChanged}" 
+                             SelectedItem="{Binding SelectedSchedule}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Day, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <TextBlock Text=" : "/>
+                                            <TextBlock Text="{Binding Time, UpdateSourceTrigger=PropertyChanged}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                <Button Width="30" Height="30" Margin="3" Command="{Binding RemoveScheduleCommand}">-</Button>
+                                <Button Width="30" Height="30" Margin="3" Command="{Binding ShowNewSchedulePopup}" CommandParameter="{Binding ElementName=popNewSchedule}">+</Button>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" Margin="5" DataContext="{Binding SelectedSchedule}">
+                                <TextBlock>День:</TextBlock>
+                                <TextBox Text="{Binding Day, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                <TextBlock>Время:</TextBlock>
+                                <TextBox Text="{Binding Time, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                
+                <Button Grid.Column="0" Margin="3" Command="{Binding DiscardChangesCommand}">Отменить</Button>
+                <Button Grid.Column="2" Margin="3" Command="{Binding SaveChangesCommand}">Сохранить</Button>
+            </Grid>
+        </Grid>
+        <Popup Name="popNewSchedule" Placement="Center" Height="200" StaysOpen="False">
+            <Border BorderBrush="Black" BorderThickness="2">
+            <StackPanel Width="300" Background="Beige">
+                    <TextBlock Margin="5">День:</TextBlock>
+                    <TextBox Margin="5" Text="{Binding NewSchedule.Day, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <TextBlock Margin="5">Время:</TextBlock>
+                    <TextBox Margin="5" Text="{Binding NewSchedule.Time, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <Button Margin="5" Command="{Binding AddScheduleCommand}" CommandParameter="{Binding ElementName=popNewSchedule}">Добавить</Button>
+            </StackPanel>
+            </Border>
+        </Popup>
+
+        <Popup Name="popNewGroup" Placement="Center" Height="130" StaysOpen="False">
+            <Border BorderBrush="Black" BorderThickness="2">
+                <StackPanel Width="300" Background="Beige">
+                    <TextBlock Margin="5">Наименование группы:</TextBlock>
+                    <TextBox Margin="5" Text="{Binding NewGroup.GroupName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <Button Margin="5" Command="{Binding AddGroupCommand}" CommandParameter="{Binding ElementName=popNewGroup}">Добавить</Button>
+                </StackPanel>
+            </Border>
+        </Popup>
+    </Grid>
+</Window>

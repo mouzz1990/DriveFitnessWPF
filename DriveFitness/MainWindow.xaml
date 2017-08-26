@@ -6,7 +6,19 @@
         xmlns:local="clr-namespace:DriveFitness"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+    <Grid Margin="0,2,0,-2">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <ListBox ItemsSource="{Binding Phones}" SelectedItem="{Binding SelectedPhone}">
+            
+        </ListBox>
+
+        <StackPanel Grid.Column="1" DataContext="{Binding SelectedPhone}">
+            <TextBlock>Name:</TextBlock>
+            <TextBox Text="{Binding Company, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        </StackPanel>
     </Grid>
 </Window>
