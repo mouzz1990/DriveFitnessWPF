@@ -1,0 +1,213 @@
+﻿<Window x:Class="DriveFitness.ClientView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DriveFitness"
+        mc:Ignorable="d"
+        Title="ClientView" Height="550" Width="650" FontSize="16" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.35*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="0.65*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <ComboBox Grid.Row="0" Margin="3" ItemsSource="{Binding Groups, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedGroup}"></ComboBox>
+            <ListBox IsEnabled="{Binding IsDataChanged, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Margin="3" ItemsSource="{Binding Clients, UpdateSourceTrigger=PropertyChanged}" 
+                     SelectedItem="{Binding SelectedClient}"
+                     >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding ClientLastname}"/>
+                                <TextBlock Text=" "/>
+                                <TextBlock Text="{Binding ClientName}"/>
+                            </StackPanel>
+                            <TextBlock Text="{Binding _ClientTelephone}" FontSize="8"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+            </ListBox>
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                <Button  Width="30" Height="30" Margin="3" Command="{Binding RemoveClientCommand}">-</Button>
+                <Button  Width="30" Height="30" Margin="3" Command="{Binding ShowNewClientWindowCommand}" CommandParameter="{Binding ElementName=popNewClient}">+</Button>
+            </StackPanel>
+        </Grid>
+        <GridSplitter Grid.Column="1" Width="3" HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
+        <Grid Grid.Column="2" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <GroupBox Header="Информация о клиенте" Margin="5" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.3*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Column="0" Grid.Row="0" Margin="3">Фамилия:</TextBlock>
+                        <TextBox Grid.Column="1" Grid.Row="0" Margin="3" TextAlignment="Center"
+                                 Text="{Binding SelectedClient.ClientLastname, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+                        <TextBlock Grid.Column="0" Grid.Row="1" Margin="3">Имя:</TextBlock>
+                        <TextBox Grid.Column="1" Grid.Row="1" Margin="3"
+                                 Text="{Binding SelectedClient.ClientName, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center"></TextBox>
+
+                        <TextBlock Grid.Column="0" Grid.Row="2" Margin="3">Дата рождения:</TextBlock>
+                        <DatePicker Grid.Column="1" Grid.Row="2" Margin="3" 
+                                    SelectedDate="{Binding SelectedClient.ClientBirthday}"
+                                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"></DatePicker>
+
+                        <TextBlock Grid.Column="0" Grid.Row="3" Margin="3">Email:</TextBlock>
+                        <TextBox Grid.Column="1" Grid.Row="3" Margin="3"
+                                 Text="{Binding SelectedClient.ClientEmail, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center"
+                                 ></TextBox>
+
+                        <TextBlock Grid.Column="0" Grid.Row="4" Margin="3">Телефон:</TextBlock>
+                        <TextBox Grid.Column="1" Grid.Row="4" Margin="3"
+                                 Text="{Binding SelectedClient.ClientTelephone, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center"
+                                 ></TextBox>
+
+                        <TextBlock Grid.Column="0" Grid.Row="5" Margin="3">Группа:</TextBlock>
+                        <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock  Margin="3" Text="{Binding SelectedClient.Group}" TextAlignment="Center"></TextBlock>
+                            <Button Width="30" Height="30" Command="{Binding ShowChangeGroupWindowCommand}" CommandParameter="{Binding ElementName=popChangeGroup}">-></Button>
+                        </StackPanel>
+                        <!--<ComboBox Grid.Column="1" Grid.Row="5" Margin="3" ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedClient.Group, UpdateSourceTrigger=PropertyChanged}"></ComboBox>-->
+                    </Grid>
+                    <!--  <StackPanel Margin="5">
+                        <StackPanel>
+                            <StackPanel DataContext="{Binding SelectedClient, UpdateSourceTrigger=PropertyChanged}">
+                                <TextBlock>Наименование группы:</TextBlock>
+                                <TextBox Text="{Binding GroupName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            </StackPanel>
+                        </StackPanel>
+                        
+                    </StackPanel>-->
+                </GroupBox>
+                <Grid>
+                    <GroupBox Header="Информация об абонементе" Margin="5" Visibility="{Binding SubscriptionVisibility}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.3*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Column="0" Grid.Row="0" Margin="3">Кол-во занятий:</TextBlock>
+                        <TextBox Grid.Column="1" Grid.Row="0" Margin="3" Text="{Binding SelectedClient.Subscription.SubscriptionCountExcercise, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center"></TextBox>
+
+                        <TextBlock Grid.Column="0" Grid.Row="1" Margin="3">Стоимость:</TextBlock>
+                        <TextBox Grid.Column="1" Grid.Row="1" Margin="3" Text="{Binding SelectedClient.Subscription.SubscriptionPrice, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center"></TextBox>
+
+                        <TextBlock Grid.Column="0" Grid.Row="2" Margin="3">Дата покупки:</TextBlock>
+                        <DatePicker Grid.Column="1" Grid.Row="2" Margin="3" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                                    SelectedDate="{Binding SelectedClient.Subscription.SubscriptionDate, UpdateSourceTrigger=PropertyChanged}"
+                                    ></DatePicker>
+
+                        <Grid Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.3*"/>
+                                <ColumnDefinition Width="0.4*" />
+                                <ColumnDefinition Width="0.3*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Grid.Row="0" Margin="3" Command="{Binding RemoveSubscriptionCommand}">Удалить</Button>
+                            <Button Grid.Column="2" Grid.Row="0" Margin="3" Command="{Binding CloseSubscriptionCommand}">Закрыть</Button>
+
+                        </Grid>
+                    </Grid>
+                </GroupBox>
+                    <GroupBox Header="Оформление абонемента" Margin="5" Visibility="{Binding AddSubscritionVisibility, UpdateSourceTrigger=PropertyChanged}">
+                    <StackPanel>
+                        <TextBlock Margin="5" FontSize="20" TextAlignment="Center">Абонемент отсутствует</TextBlock>
+                        <Button Margin="5" Command="{Binding ShowSubscriptionWindowCommand}" CommandParameter="{Binding ElementName=popNewSubscription}">Оформить абонемент</Button>
+                    </StackPanel>
+                </GroupBox>
+                </Grid>
+            </StackPanel>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Margin="3" Command="{Binding DiscardChangesCommand}">Отменить</Button>
+                <Button Grid.Column="2" Margin="3" Command="{Binding SaveDataChangesCommand}">Сохранить</Button>
+            </Grid>
+        </Grid>
+        <Popup Name="popNewClient" Placement="Center" Height="350" StaysOpen="False" PopupAnimation="Slide" AllowsTransparency="True">
+            <Border BorderBrush="Black" BorderThickness="2">
+                <StackPanel Width="300" Background="Beige">
+                    <TextBlock Margin="3">Фамилия:</TextBlock>
+                    <TextBox Margin="3" Text="{Binding NewClient.ClientLastname, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <TextBlock Margin="3">Имя:</TextBlock>
+                    <TextBox Margin="3" Text="{Binding NewClient.ClientName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <TextBlock Margin="3">Дата рождения:</TextBlock>
+                    <DatePicker Margin="3" SelectedDate="{Binding NewClient.ClientBirthday, UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+                    <TextBlock Margin="3">Email:</TextBlock>
+                    <TextBox Margin="3" Text="{Binding NewClient.ClientEmail, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <TextBlock Margin="3">Телефон:</TextBlock>
+                    <TextBox Margin="3" Text="{Binding NewClient.ClientTelephone, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+                    <Button Margin="3" Command="{Binding AddClientCommand}" CommandParameter="{Binding ElementName=popNewClient}">Добавить</Button>
+                </StackPanel>
+            </Border>
+        </Popup>
+
+        <Popup Name="popNewSubscription" Placement="Center" Height="260" StaysOpen="False" PopupAnimation="Slide" AllowsTransparency="True">
+            <Border BorderBrush="Black" BorderThickness="2">
+                <StackPanel Width="300" Background="Beige">
+                    <TextBlock Margin="5">Кол-во занятий:</TextBlock>
+                    <TextBox Margin="5" Text="{Binding NewSubscriptionCount, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <TextBlock Margin="5">Стоимость:</TextBlock>
+                    <TextBox Margin="5" Text="{Binding NewSubscriptionPrice, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <TextBlock Margin="5">Дата оформления:</TextBlock>
+                    <DatePicker Margin="5" Text="{Binding NewSubscriptionDate, UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+                    <Button Margin="5" Command="{Binding CreateSubscriptionCommand}" CommandParameter="{Binding ElementName=popNewSubscription}">Добавить</Button>
+                </StackPanel>
+            </Border>
+        </Popup>
+
+        <Popup Name="popChangeGroup" Placement="Center" Height="130" StaysOpen="False" PopupAnimation="Slide" AllowsTransparency="True">
+            <Border BorderBrush="Black" BorderThickness="2">
+                <StackPanel Width="300" Background="Beige">
+                    <TextBlock Margin="5">Перевести в группу:</TextBlock>
+                    <ComboBox Margin="5" ItemsSource="{Binding Groups}" SelectedItem="{Binding NewGroup, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+                    <Button Margin="5" Command="{Binding ChangeGroupCommand}" CommandParameter="{Binding ElementName=popChangeGroup}">Перевести</Button>
+                </StackPanel>
+            </Border>
+        </Popup>
+    </Grid>
+</Window>

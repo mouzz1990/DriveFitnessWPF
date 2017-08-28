@@ -11,12 +11,17 @@ namespace DriveFitnessLibrary
 
         public void QuestionMessage(string message)
         {
-            MessageBox.Show(message, "Операция успешна!", MessageBoxButton.OK, MessageBoxImage.Question);
+            MessageBox.Show(message, "Подтверждение операции!", MessageBoxButton.OK, MessageBoxImage.Question);
         }
 
         public void ErrorMessage(string message)
         {
-            MessageBox.Show(message, "Операция успешна!", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(message, "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        public void WarningMessage(string message)
+        {
+            MessageBox.Show(message, "Подтверждение операции!", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 }

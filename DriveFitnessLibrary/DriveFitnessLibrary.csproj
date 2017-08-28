@@ -61,6 +61,7 @@
     <Compile Include="Client.cs">
       <DependentUpon>DriveFitnessModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ClientManager.cs" />
     <Compile Include="DialogManager.cs" />
     <Compile Include="DriveFitnessModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -94,6 +95,7 @@
     <Compile Include="Subscription.cs">
       <DependentUpon>DriveFitnessModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\ClientViewModel.cs" />
     <Compile Include="ViewModel\GroupViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
