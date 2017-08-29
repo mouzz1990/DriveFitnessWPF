@@ -1,0 +1,66 @@
+﻿<Window x:Class="DriveFitness.AttendanceCameraWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DriveFitness"
+        mc:Ignorable="d"
+        Title="AttendanceCameraView" Height="400" Width="600" FontSize="16">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.4*"/>
+            <ColumnDefinition Width="0.6*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.4*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.3*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="0" Grid.Row="0" Margin="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.4*"/>
+                <ColumnDefinition Width="0.6*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="0" Grid.Row="0" Margin="3">Оплата:</TextBlock>
+            <TextBox Grid.Column="1" Grid.Row="0" Margin="3" Text="{Binding AttendancePrice}"></TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="1" Margin="3">Дата:</TextBlock>
+            <DatePicker Grid.Column="1" Grid.Row="1" Margin="3" SelectedDate="{Binding AttendanceDate}"></DatePicker>
+        </Grid>
+        <Grid Grid.Column="0" Grid.Row="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.15*"/>
+                    <RowDefinition Height="0.85*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Margin="3">Выберите устройство:</TextBlock>
+                <ListBox 
+                    ItemsSource="{Binding VideoDeviceManager.Devices, UpdateSourceTrigger=PropertyChanged}" 
+                    SelectedItem="{Binding VideoDeviceManager.SelectedDevice, UpdateSourceTrigger=PropertyChanged}"
+                    Grid.Row="1" Margin="3">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"></TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+
+        </Grid>
+        <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal" Height="40">
+            <Button Margin="3" Command="{Binding StopScanCommand}" Width="80">Стоп</Button>
+            <Button  Margin="3" Command="{Binding StartScanCommand}" Width="140">Старт</Button>
+        </StackPanel>
+        <Border Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" BorderBrush="Black" BorderThickness="1" Margin="3">
+            <Image Source="{Binding VideoDeviceManager.CameraImage, UpdateSourceTrigger=PropertyChanged}"></Image>
+        </Border>
+        <StackPanel Grid.Column="1" Grid.Row="2">
+            
+            <TextBlock Margin="3">Результат сканирования:</TextBlock>
+            <TextBox Margin="3" Text="{Binding VideoDeviceManager.ScannedResult}"></TextBox>
+        </StackPanel>
+    </Grid>
+</Window>

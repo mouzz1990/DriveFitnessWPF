@@ -26,6 +26,27 @@ namespace DriveFitness
             InitializeComponent();
         }
 
-        
+        private void BtnAttendance_Click(object sender, RoutedEventArgs e)
+        {
+            AttendanceCameraWindow w = new AttendanceCameraWindow();
+            w.Show();
+        }
+
+        private void BtnGroups_Click(object sender, RoutedEventArgs e)
+        {
+            GroupView w = new GroupView();
+            w.Show();
+        }
+
+        private void BtnClients_Click(object sender, RoutedEventArgs e)
+        {
+            ClientView w = new ClientView();
+            w.Show();
+        }
+
+        private void BtnReport_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -21,7 +21,7 @@
                 <RowDefinition/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
-            <ComboBox Grid.Row="0" Margin="3" ItemsSource="{Binding Groups, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedGroup}"></ComboBox>
+            <ComboBox IsEnabled="{Binding IsDataChanged, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Margin="3" ItemsSource="{Binding Groups, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedGroup}"></ComboBox>
             <ListBox IsEnabled="{Binding IsDataChanged, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Margin="3" ItemsSource="{Binding Clients, UpdateSourceTrigger=PropertyChanged}" 
                      SelectedItem="{Binding SelectedClient}"
                      >
@@ -194,7 +194,7 @@
                     <TextBlock Margin="5">Стоимость:</TextBlock>
                     <TextBox Margin="5" Text="{Binding NewSubscriptionPrice, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     <TextBlock Margin="5">Дата оформления:</TextBlock>
-                    <DatePicker Margin="5" Text="{Binding NewSubscriptionDate, UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+                    <DatePicker Margin="5" SelectedDate="{Binding NewSubscriptionDate, UpdateSourceTrigger=PropertyChanged}"></DatePicker>
                     <Button Margin="5" Command="{Binding CreateSubscriptionCommand}" CommandParameter="{Binding ElementName=popNewSubscription}">Добавить</Button>
                 </StackPanel>
             </Border>

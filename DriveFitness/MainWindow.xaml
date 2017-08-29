@@ -5,20 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DriveFitness"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid Margin="0,2,0,-2">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-
-        <ListBox ItemsSource="{Binding Phones}" SelectedItem="{Binding SelectedPhone}">
-            
-        </ListBox>
-
-        <StackPanel Grid.Column="1" DataContext="{Binding SelectedPhone}">
-            <TextBlock>Name:</TextBlock>
-            <TextBox Text="{Binding Company, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        Title="MainWindow" Height="285" Width="300" FontSize="16">
+    <Grid>
+        <StackPanel Margin="5">
+            <Button Name="BtnAttendance" Margin="5" Height="50" Click="BtnAttendance_Click">Учет посещения клиентов</Button>
+            <Button Name="BtnGroups" Margin="5" Height="50" Click="BtnGroups_Click">Группы и расписание</Button>
+            <Button Name="BtnClients" Margin="5" Height="50" Click="BtnClients_Click">Клиенты и абонементы</Button>
+            <Button Name="BtnReport"  Margin="5" Height="50" Click="BtnReport_Click">Финансовый отчет</Button>
         </StackPanel>
     </Grid>
 </Window>
