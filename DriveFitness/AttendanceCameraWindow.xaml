@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DriveFitness"
         mc:Ignorable="d"
-        Title="AttendanceCameraView" Height="400" Width="600" FontSize="16">
+        Title="Учет посещения клиентов" Height="400" Width="600" FontSize="16" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.4*"/>

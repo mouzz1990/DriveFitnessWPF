@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DriveFitness"
         mc:Ignorable="d"
-        Title="MainWindow" Height="285" Width="300" FontSize="16">
+        Title="MainWindow" Height="285" Width="300" FontSize="16" WindowStartupLocation="CenterScreen">
     <Grid>
         <StackPanel Margin="5">
             <Button Name="BtnAttendance" Margin="5" Height="50" Click="BtnAttendance_Click">Учет посещения клиентов</Button>

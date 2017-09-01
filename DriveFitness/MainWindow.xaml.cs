@@ -46,7 +46,8 @@ namespace DriveFitness
 
         private void BtnReport_Click(object sender, RoutedEventArgs e)
         {
-
+            ReportView w = new ReportView();
+            w.Show();
         }
     }
 }

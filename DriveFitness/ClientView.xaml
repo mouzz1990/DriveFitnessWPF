@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DriveFitness"
         mc:Ignorable="d"
-        Title="ClientView" Height="550" Width="650" FontSize="16" WindowStartupLocation="CenterScreen">
+        Title="Работа с клиентами" Height="600" Width="650" FontSize="16" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -17,7 +17,7 @@
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0" Grid.Row="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="35"/>
+                <RowDefinition Height="40"/>
                 <RowDefinition/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
@@ -64,6 +64,7 @@
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
 
                         <TextBlock Grid.Column="0" Grid.Row="0" Margin="3">Фамилия:</TextBlock>
@@ -92,9 +93,9 @@
                         <TextBlock Grid.Column="0" Grid.Row="5" Margin="3">Группа:</TextBlock>
                         <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock  Margin="3" Text="{Binding SelectedClient.Group}" TextAlignment="Center"></TextBlock>
-                            <Button Width="30" Height="30" Command="{Binding ShowChangeGroupWindowCommand}" CommandParameter="{Binding ElementName=popChangeGroup}">-></Button>
+                            <Button Width="35" Height="35" Command="{Binding ShowChangeGroupWindowCommand}" CommandParameter="{Binding ElementName=popChangeGroup}">-></Button>
                         </StackPanel>
-                        <!--<ComboBox Grid.Column="1" Grid.Row="5" Margin="3" ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedClient.Group, UpdateSourceTrigger=PropertyChanged}"></ComboBox>-->
+                        <Button Grid.Column="1" Grid.Row="6" Margin="3" Command="{Binding MakeClientCardCommand}">Сформировать карту клиента</Button>
                     </Grid>
                     <!--  <StackPanel Margin="5">
                         <StackPanel>
@@ -167,9 +168,9 @@
                 <Button Grid.Column="2" Margin="3" Command="{Binding SaveDataChangesCommand}">Сохранить</Button>
             </Grid>
         </Grid>
-        <Popup Name="popNewClient" Placement="Center" Height="350" StaysOpen="False" PopupAnimation="Slide" AllowsTransparency="True">
+        <Popup Name="popNewClient" Placement="Center" Height="375" StaysOpen="False" PopupAnimation="Slide" AllowsTransparency="True">
             <Border BorderBrush="Black" BorderThickness="2">
-                <StackPanel Width="300" Background="Beige">
+                <StackPanel Width="300" Background="AliceBlue">
                     <TextBlock Margin="3">Фамилия:</TextBlock>
                     <TextBox Margin="3" Text="{Binding NewClient.ClientLastname, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     <TextBlock Margin="3">Имя:</TextBlock>
@@ -186,9 +187,9 @@
             </Border>
         </Popup>
 
-        <Popup Name="popNewSubscription" Placement="Center" Height="260" StaysOpen="False" PopupAnimation="Slide" AllowsTransparency="True">
+        <Popup Name="popNewSubscription" Placement="Center" Height="270" StaysOpen="False" PopupAnimation="Slide" AllowsTransparency="True">
             <Border BorderBrush="Black" BorderThickness="2">
-                <StackPanel Width="300" Background="Beige">
+                <StackPanel Width="300" Background="AliceBlue">
                     <TextBlock Margin="5">Кол-во занятий:</TextBlock>
                     <TextBox Margin="5" Text="{Binding NewSubscriptionCount, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     <TextBlock Margin="5">Стоимость:</TextBlock>

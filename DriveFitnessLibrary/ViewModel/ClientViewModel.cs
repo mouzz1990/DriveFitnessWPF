@@ -18,6 +18,7 @@ namespace DriveFitnessLibrary.ViewModel
         ClientManager clientManager;
         Messager messager;
         DialogManager dialogManager;
+        ClientCardCreator cardCreator;
         #endregion
 
         public ClientViewModel()
@@ -26,6 +27,7 @@ namespace DriveFitnessLibrary.ViewModel
             clientManager = new ClientManager();
             dialogManager = new DialogManager();
             messager = new Messager();
+            cardCreator = new ClientCardCreator();
             Groups = clientManager.GetGroups();
             NewClient = new Client();
             SelectedGroup = Groups[0];
@@ -314,6 +316,11 @@ namespace DriveFitnessLibrary.ViewModel
                 {
                     Popup pop = obj as Popup;
                     pop.IsOpen = true;
+                },
+                (obj)=>
+                {
+                    if (SelectedClient == null) return false;
+                    return true;
                 }
                 ));
             }
@@ -363,7 +370,13 @@ namespace DriveFitnessLibrary.ViewModel
                     Popup pop = obj as Popup;
                     pop.IsOpen = true;
                     NewGroup = SelectedGroup;
+                },
+                (obj)=>
+                {
+                    if (SelectedClient == null) return false;
+                    return true;
                 }
+
                 ));
 
             }
@@ -470,6 +483,24 @@ namespace DriveFitnessLibrary.ViewModel
                 }
                 ));
 
+            }
+        }
+
+        private BCommand makeClientCardCommand;
+        public BCommand MakeClientCardCommand
+        {
+            get
+            {
+                return makeClientCardCommand ?? (makeClientCardCommand = new BCommand((obj)=>
+                {
+                    Task tsk = Task.Factory.StartNew(()=> cardCreator.MakeClientCard(SelectedClient));  
+                },
+                (obj)=>
+                {
+                    if (SelectedClient == null) return false;
+                    return true;
+                }
+                ));
             }
         }
 

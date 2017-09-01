@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,21 @@ namespace DriveFitnessLibrary
                 return true;
 
             else return false;
+        }
+
+        public bool DialogSavePath(out string filepath)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Excel document|*.xls";
+
+            if ((bool)sfd.ShowDialog())
+            {
+                filepath = sfd.FileName;
+                return true;
+            }
+
+            filepath = "";
+            return false;
         }
     }
 }

@@ -105,9 +105,9 @@
                 <Button Grid.Column="2" Margin="3" Command="{Binding SaveChangesCommand}">Сохранить</Button>
             </Grid>
         </Grid>
-        <Popup Name="popNewSchedule" Placement="Center" Height="200" StaysOpen="False">
+        <Popup Name="popNewSchedule" Placement="Center" Height="200" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Slide">
             <Border BorderBrush="Black" BorderThickness="2">
-            <StackPanel Width="300" Background="Beige">
+                <StackPanel Width="300" Background="AliceBlue">
                     <TextBlock Margin="5">День:</TextBlock>
                     <TextBox Margin="5" Text="{Binding NewSchedule.Day, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     <TextBlock Margin="5">Время:</TextBlock>
@@ -117,9 +117,9 @@
             </Border>
         </Popup>
 
-        <Popup Name="popNewGroup" Placement="Center" Height="130" StaysOpen="False">
+        <Popup Name="popNewGroup" Placement="Center" Height="130" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Slide">
             <Border BorderBrush="Black" BorderThickness="2">
-                <StackPanel Width="300" Background="Beige">
+                <StackPanel Width="300" Background="AliceBlue">
                     <TextBlock Margin="5">Наименование группы:</TextBlock>
                     <TextBox Margin="5" Text="{Binding NewGroup.GroupName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     <Button Margin="5" Command="{Binding AddGroupCommand}" CommandParameter="{Binding ElementName=popNewGroup}">Добавить</Button>
