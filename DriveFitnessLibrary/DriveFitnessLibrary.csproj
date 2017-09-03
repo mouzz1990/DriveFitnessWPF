@@ -84,6 +84,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AttachedProperties.cs" />
     <Compile Include="Attendance.cs">
       <DependentUpon>DriveFitnessModel.tt</DependentUpon>
     </Compile>
@@ -111,6 +112,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DriveFitnessModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="EmailMessageSender.cs" />
     <Compile Include="Group.cs">
       <DependentUpon>DriveFitnessModel.tt</DependentUpon>
     </Compile>
@@ -131,7 +133,9 @@
     </Compile>
     <Compile Include="VideoDeviceManager.cs" />
     <Compile Include="ViewModel\AttendanceCameraViewModel.cs" />
+    <Compile Include="ViewModel\AttendanceManualViewModel.cs" />
     <Compile Include="ViewModel\ClientViewModel.cs" />
+    <Compile Include="ViewModel\EmailMessagerViewModel.cs" />
     <Compile Include="ViewModel\GroupViewModel.cs" />
     <Compile Include="ViewModel\ReportViewModel.cs" />
   </ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,11 @@ namespace DriveFitnessLibrary
     public class AttendanceManager
     {
         DrivefitnessContext DriveContext;
+
+        public List<Group> GetGroups()
+        {
+            return DriveContext.Group.ToList();
+        }
 
         public event EventHandler SubscriptionClosed;
         public void OnSubscriptionClosed(string message)
@@ -110,6 +116,32 @@ namespace DriveFitnessLibrary
             }
 
             return null;
+        }
+
+        public ObservableCollection<DateTime> GetVisitedDates(Client client)
+        {
+            if (client == null) return null;
+
+            var attendances = (from att in DriveContext.Attendance
+                              where att.ClientId == client.ClientId
+                              select att.DateVisit).ToList();
+            ObservableCollection<DateTime> at = new ObservableCollection<DateTime>(attendances);
+            return at;
+        }
+
+        public bool RemoveAttendance(Client client, DateTime visitationDate)
+        {
+            var attendances = (DriveContext.Attendance.Where(x => x.ClientId == client.ClientId && x.DateVisit == visitationDate)).ToList();
+
+            if (attendances.Count == 0) return false;
+
+            var removableAttendance = attendances[0];
+
+            DriveContext.Attendance.Remove(removableAttendance);
+
+            DriveContext.SaveChanges();
+
+            return true;
         }
     }
 }

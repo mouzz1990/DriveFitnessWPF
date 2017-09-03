@@ -28,7 +28,7 @@ namespace DriveFitness
 
         private void BtnAttendance_Click(object sender, RoutedEventArgs e)
         {
-            AttendanceCameraWindow w = new AttendanceCameraWindow();
+            AttendanceChoiceWindow w = new AttendanceChoiceWindow();
             w.Show();
         }
 
@@ -48,6 +48,17 @@ namespace DriveFitness
         {
             ReportView w = new ReportView();
             w.Show();
+        }
+
+        private void miClose_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void miEmail_Click(object sender, RoutedEventArgs e)
+        {
+            EmailMessageWindow emw = new EmailMessageWindow();
+            emw.Show();
         }
     }
 }

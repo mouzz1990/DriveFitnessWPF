@@ -1,0 +1,63 @@
+﻿<Window x:Class="DriveFitness.EmailMessageWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DriveFitness"
+        mc:Ignorable="d"
+        Title="EmailMessageWindow" Height="450" Width="550" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="1.5*"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            
+            <ComboBox Grid.Row="0" Margin="3" ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+            <ListBox Grid.Row="1" Margin="3" ItemsSource="{Binding Clients, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedClient,UpdateSourceTrigger=PropertyChanged}"></ListBox>
+            <Button Grid.Row="2" Margin="3">Выбрать всех</Button>
+            
+        </Grid>
+
+        <GridSplitter Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"></GridSplitter>
+
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="90"/>
+                <RowDefinition/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="3">
+                    <TextBlock VerticalAlignment="Center">Логин:</TextBlock>
+                    <TextBox Width="150" Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="3">
+                    <TextBlock VerticalAlignment="Center">Пароль:</TextBlock>
+                    <TextBox Width="150" Text="{Binding Password}"></TextBox>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Margin="3">
+                <TextBlock Margin="3">Тема сообщения:</TextBlock>
+                <TextBox Margin="3" Text="{Binding Subject, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+                <TextBlock Margin="3">Сообщение:</TextBlock>
+                <TextBox Margin="3" Height="180" VerticalScrollBarVisibility="Auto" 
+                         TextWrapping="Wrap" AcceptsReturn="True"
+                         Text="{Binding MessageText, UpdateSourceTrigger=PropertyChanged}"
+                         ></TextBox>
+            </StackPanel>
+
+            <Button Grid.Row="2" Margin="3" Command="{Binding SendMessageCommand}">Отправить сообщение</Button>
+        </Grid>
+    </Grid>
+</Window>

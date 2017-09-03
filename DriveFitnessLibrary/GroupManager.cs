@@ -11,7 +11,14 @@ namespace DriveFitnessLibrary
 {
     public class GroupManager
     {
-        DrivefitnessContext DriveContext = new DrivefitnessContext();
+        DrivefitnessContext DriveContext;
+        Messager messager;
+
+        public GroupManager()
+        {
+            messager = new Messager();
+            DriveContext = new DrivefitnessContext();
+        }
 
         public ObservableCollection<Group> GetGroups()
         {
@@ -21,6 +28,8 @@ namespace DriveFitnessLibrary
 
         public ObservableCollection<Schedule> GetSchedules(Group gr)
         {
+            if (gr == null) return null;
+
             var q = from s in DriveContext.Schedule
                     where s.GroupId == gr.GroupId
                     select s;
@@ -47,7 +56,7 @@ namespace DriveFitnessLibrary
 
         public bool RemoveGroup(Group group)
         {
-            if (group.Schedule.Count > 0) return false;
+            if (group.Schedule.Count > 0 || group.Client.Count > 0) return false;
 
             DriveContext.Group.Remove(group);
             DriveContext.SaveChanges();
@@ -57,6 +66,7 @@ namespace DriveFitnessLibrary
         public void SaveDataContext()
         {
             DriveContext.SaveChanges();
+            messager.SuccessMessage("Изменения успешно сохранены!");
         }
 
         public void DiscardChanges()
@@ -78,6 +88,8 @@ namespace DriveFitnessLibrary
                     default: break;
                 }
             }
+
+            messager.SuccessMessage("Все изменения отменены.");
         }
 
         public bool CheckChanges()

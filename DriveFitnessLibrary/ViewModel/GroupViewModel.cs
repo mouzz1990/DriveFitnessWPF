@@ -13,9 +13,11 @@ namespace DriveFitnessLibrary.ViewModel
 {
     public class GroupViewModel : INotifyPropertyChanged
     {
+        #region Managers
         GroupManager groupManager;
         DialogManager dialogManager;
         Messager messager;
+        #endregion
 
         public GroupViewModel()
         {
@@ -38,6 +40,25 @@ namespace DriveFitnessLibrary.ViewModel
                     IsDataChanged = false;
             }
         }
+        private void SchedulesObservable_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (!IsDataChanged) return;
+
+            if (groupManager.CheckChanges() == true)
+            {
+                IsDataChanged = false;
+            }
+        }
+        private void SelectedSchedule_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Day" || e.PropertyName == "Time")
+            {
+                if (!IsDataChanged) return;
+
+                if (groupManager.CheckChanges() == true)
+                    IsDataChanged = false;
+            }
+        }
 
         public ObservableCollection<Group> Groups { get; set; }
 
@@ -48,8 +69,12 @@ namespace DriveFitnessLibrary.ViewModel
             set
             {
                 selectedGroup = value;
-                //Schedules = SelectedGroup.Schedule.ToList();
-                //SchedulesObservable = new ObservableCollection<Schedule>(Schedules);
+                
+                if (SelectedGroup == null)
+                {
+                    OnPropertyChanged();
+                    return;
+                }
 
                 SchedulesObservable = groupManager.GetSchedules(SelectedGroup);
 
@@ -60,16 +85,6 @@ namespace DriveFitnessLibrary.ViewModel
                 SchedulesObservable.CollectionChanged += SchedulesObservable_CollectionChanged;
 
                 OnPropertyChanged();
-            }
-        }
-
-        private void SchedulesObservable_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (!IsDataChanged) return;
-
-            if (groupManager.CheckChanges() == true)
-            {
-                IsDataChanged = false;
             }
         }
 
@@ -103,29 +118,6 @@ namespace DriveFitnessLibrary.ViewModel
             }
         }
 
-        private bool isDataChanged;
-        public bool IsDataChanged
-        {
-            get { return isDataChanged; }
-            set { isDataChanged = value; OnPropertyChanged(); }
-        }
-        
-        public bool IsSaveActivated
-        {
-            get { return !isDataChanged; }
-        }
-
-        private void SelectedSchedule_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "Day" || e.PropertyName == "Time")
-            {
-                if (!IsDataChanged) return;
-
-                if (groupManager.CheckChanges() == true)
-                    IsDataChanged = false;
-            }
-        }
-
         private Schedule newSchedule;
         public Schedule NewSchedule
         {
@@ -141,13 +133,29 @@ namespace DriveFitnessLibrary.ViewModel
         }
 
 
+        private bool isDataChanged;
+        public bool IsDataChanged
+        {
+            get { return isDataChanged; }
+            set { isDataChanged = value; OnPropertyChanged(); }
+        }
+
+        public bool IsSaveActivated
+        {
+            get { return !isDataChanged; }
+        }
+
+
+        #region INotifyPropertyChanged implementation
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop="")
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
+        #endregion
 
+        #region Commands
         private BCommand saveChangesCommand;
         public BCommand SaveChangesCommand
         {
@@ -158,7 +166,6 @@ namespace DriveFitnessLibrary.ViewModel
                     if (dialogManager.DialogOkCancel($"Вы уверены что хотите сохранить изменения в группе: \"{ SelectedGroup}\"?"))
                     {
                         groupManager.SaveDataContext();
-                        messager.SuccessMessage("Изменения успешно сохранены!");
                         IsDataChanged = true;
                     }
                 },
@@ -166,7 +173,6 @@ namespace DriveFitnessLibrary.ViewModel
                 {
                     return IsSaveActivated;
                 }
-                
                 ));
             }
         }
@@ -181,7 +187,6 @@ namespace DriveFitnessLibrary.ViewModel
                     if (dialogManager.DialogOkCancel($"Вы уверены что хотите отменить изменения в группе: \"{ SelectedGroup}\"?"))
                     {
                         groupManager.DiscardChanges();
-                        messager.SuccessMessage("Все изменения отменены.");
                         IsDataChanged = true;
 
                         //Временное решение... Подумать!!!
@@ -337,6 +342,6 @@ namespace DriveFitnessLibrary.ViewModel
                 ));
             }
         }
-
+        #endregion
     }
 }
