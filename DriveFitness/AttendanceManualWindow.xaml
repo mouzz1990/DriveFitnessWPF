@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:helper="clr-namespace:DriveFitnessLibrary;assembly=DriveFitnessLibrary"
         xmlns:local="clr-namespace:DriveFitness"
         mc:Ignorable="d"
         Title="Учет посещаемости клиентов" Height="400" Width="550" FontSize="16">
@@ -19,7 +20,11 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <ComboBox VerticalAlignment="Center" Grid.Row="0" Margin="3" ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
-            <ListBox Grid.Row="1" Margin="3" ItemsSource="{Binding Clients, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedClient, UpdateSourceTrigger=PropertyChanged}"></ListBox>
+            <ListBox Grid.Row="1" Margin="3" 
+                     ItemsSource="{Binding Clients, UpdateSourceTrigger=PropertyChanged}" 
+                     SelectedItem="{Binding SelectedClient, UpdateSourceTrigger=PropertyChanged}"
+                     SelectionChanged="ListBox_SelectionChanged">
+            </ListBox>
         </Grid>
 
         <GridSplitter Grid.Column="1" Width="5" VerticalAlignment="Stretch" HorizontalAlignment="Center"></GridSplitter>
@@ -43,26 +48,21 @@
                         SelectedDate="{Binding SelectedDate, UpdateSourceTrigger=PropertyChanged}"
                         Margin="3"/>
 
-            <ListBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Margin="3" ItemsSource="{Binding VisitedDates, UpdateSourceTrigger=PropertyChanged}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Day}"></TextBlock>
-                            <TextBlock>.</TextBlock>
-                            <TextBlock Text="{Binding Month}"></TextBlock>
-                            <TextBlock>.</TextBlock>
-                            <TextBlock Text="{Binding Year}"></TextBlock>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-                
-            </ListBox>
-            <!--
             <Viewbox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3">
-                <Calendar Name="calendar" 
-                          SelectedDate="{Binding ElementName=dtpVisitation, Path=SelectedDate, Mode=OneWayToSource}"/>
+                <Calendar Name="calendar" SelectedDate="{Binding ElementName=dtpVisitation, Path=SelectedDate}">
+                    <Calendar.CalendarDayButtonStyle>
+                        <Style TargetType="{x:Type CalendarDayButton}">
+                            <Setter Property="helper:VisitedDatesHelper.Date" Value="{Binding}" />
+                            <Style.Triggers>
+                                <Trigger Property="helper:VisitedDatesHelper.IsVisited" Value="True">
+                                    <Setter Property="Background" Value="Red" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Calendar.CalendarDayButtonStyle>
+                </Calendar>
             </Viewbox>
-            -->
+
             <Button Grid.Column="0" Grid.Row="3" Margin="3" Command="{Binding RemoveAttendanceCommand}">Удалить</Button>
             <Button Grid.Column="2" Grid.Row="3" Margin="3" Command="{Binding AddAttendanceCommand}">Добавить</Button>
         </Grid>

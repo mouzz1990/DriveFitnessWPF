@@ -95,6 +95,7 @@
       <DependentUpon>DriveFitnessModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ClientCardCreator.cs" />
+    <Compile Include="ClientCheckboxModel.cs" />
     <Compile Include="ClientManager.cs" />
     <Compile Include="DialogManager.cs" />
     <Compile Include="DriveFitnessModel.Context.cs">
@@ -138,6 +139,7 @@
     <Compile Include="ViewModel\EmailMessagerViewModel.cs" />
     <Compile Include="ViewModel\GroupViewModel.cs" />
     <Compile Include="ViewModel\ReportViewModel.cs" />
+    <Compile Include="VisitedDatesHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

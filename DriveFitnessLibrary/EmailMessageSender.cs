@@ -13,12 +13,20 @@ namespace DriveFitnessLibrary
     public class EmailMessageSender
     {
         Messager messager;
+        DrivefitnessContext DriveContext;
+
         public EmailMessageSender()
         {
             messager = new Messager();
+            DriveContext = new DrivefitnessContext();
         }
 
-        public void SendMessage(Client Client, string Subject, string Message, string login, string password)
+        public List<Group> GetGroups()
+        {
+            return DriveContext.Group.ToList();
+        }
+
+        public void SendMessage(Client Client, string Subject, string Message, string login, string password, out string sendedClient)
         {
             Thread.Sleep(500);
             try
@@ -47,6 +55,8 @@ namespace DriveFitnessLibrary
                     smtp.EnableSsl = true;
 
                     smtp.Send(mailMessage);
+
+                    sendedClient = Client.ToString();
                 }
                 else
                 {
@@ -55,6 +65,7 @@ namespace DriveFitnessLibrary
                         Client.ClientEmail,
                         Environment.NewLine
                         ));
+                    sendedClient = string.Empty;
                 };
             }
             catch (SmtpException)

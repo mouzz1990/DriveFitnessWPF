@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DriveFitness"
         mc:Ignorable="d"
-        Title="EmailMessageWindow" Height="450" Width="550" WindowStartupLocation="CenterScreen">
+        Title="Отправка Email сообщений" Height="450" Width="600" FontSize="16" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -21,8 +21,25 @@
             </Grid.RowDefinitions>
             
             <ComboBox Grid.Row="0" Margin="3" ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
-            <ListBox Grid.Row="1" Margin="3" ItemsSource="{Binding Clients, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedClient,UpdateSourceTrigger=PropertyChanged}"></ListBox>
-            <Button Grid.Row="2" Margin="3">Выбрать всех</Button>
+            <ListBox Grid.Row="1" Margin="3" ItemsSource="{Binding Clients, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedClient,UpdateSourceTrigger=PropertyChanged}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <CheckBox Grid.Column="0" VerticalContentAlignment="Center" 
+                                      Content="{Binding ClientData}"
+                                      IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      >
+                                
+                            </CheckBox>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button Grid.Row="2" Margin="3" Command="{Binding CheckAllCommand}">Выбрать всех</Button>
             
         </Grid>
 
@@ -36,13 +53,14 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="3">
-                    <TextBlock VerticalAlignment="Center">Логин:</TextBlock>
-                    <TextBox Width="150" Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <TextBlock Margin="5" VerticalAlignment="Center">Логин:</TextBlock>
+                    <TextBox Width="230" Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 </StackPanel>
                 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="3">
-                    <TextBlock VerticalAlignment="Center">Пароль:</TextBlock>
-                    <TextBox Width="150" Text="{Binding Password}"></TextBox>
+                    <TextBlock Margin="5" VerticalAlignment="Center">Пароль:</TextBlock>
+                    <TextBox Width="230" Text="{Binding Password}" Name="txbPassword"></TextBox>
+                    <!--<PasswordBox Width="230" Password="{Binding Password}"></PasswordBox>-->
                 </StackPanel>
             </StackPanel>
 

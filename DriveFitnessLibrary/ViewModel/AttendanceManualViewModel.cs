@@ -16,6 +16,14 @@ namespace DriveFitnessLibrary.ViewModel
         AttendanceManager attendanceManager;
         Messager messager;
 
+        private static ObservableCollection<DateTime> selectedClientVisitedDate;
+        public static ObservableCollection<DateTime> SelectedClientVisitedDate
+        {
+            get { return selectedClientVisitedDate; }
+            set { selectedClientVisitedDate = value; }
+        }
+
+
         public AttendanceManualViewModel()
         {
             attendanceManager = new AttendanceManager();
@@ -69,7 +77,8 @@ namespace DriveFitnessLibrary.ViewModel
             {
                 selectedClient = value;
                 VisitedDates = attendanceManager.GetVisitedDates(SelectedClient);
-                
+                SelectedClientVisitedDate = VisitedDates;
+
                 OnPropertyChanged(); }
         }
 
@@ -118,9 +127,9 @@ namespace DriveFitnessLibrary.ViewModel
                         
                         VisitedDates.Add(SelectedDate);
                         //temprary solution for refresh calendar
-                        //Client temp = SelectedClient;
-                        //SelectedClient = null;
-                        //SelectedClient = temp;
+                        Client temp = SelectedClient;
+                        SelectedClient = null;
+                        SelectedClient = temp;
                     }
                     catch (InvalidOperationException exc)
                     {
@@ -152,9 +161,9 @@ namespace DriveFitnessLibrary.ViewModel
                     messager.SuccessMessage($"Посещение \"{SelectedClient}\" - {SelectedDate.ToShortDateString()} успешно удалено!");
 
                     ////temprary solution for refresh calendar
-                    //Client temp = SelectedClient;
-                    //SelectedClient = null;
-                    //SelectedClient = temp;
+                    Client temp = SelectedClient;
+                    SelectedClient = null;
+                    SelectedClient = temp;
                 },
                 (obj) =>
                 {

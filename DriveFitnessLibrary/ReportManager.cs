@@ -172,10 +172,12 @@ namespace DriveFitnessLibrary
                 Excel.Application eApp = new Excel.Application();
                 Excel.Workbook wBook = eApp.Workbooks.Add();
                 Excel.Worksheet wSheet = wBook.Worksheets.Add();
-
+                
                 for (int i = 0; i < data.Columns.Count; i++)
                 {
-                    wSheet.Cells[1, i + 1] = data.Columns[i].ColumnName;
+                    var header = data.Columns[i].ColumnName;
+                    header = header.Replace("-", " ");
+                    wSheet.Cells[1, i + 1] = header;
                 }
 
                 for (int i = 0; i < data.Rows.Count; i++)

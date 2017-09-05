@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
+using System.Windows.Threading;
 
 namespace DriveFitness
 {
@@ -30,6 +31,14 @@ namespace DriveFitness
             InitializeComponent();
             vm =  new AttendanceManualViewModel();
             DataContext = vm;
+        }
+        
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var temp = (DateTime)calendar.SelectedDate;
+            calendar.DisplayDate = temp.AddMonths(-3);
+
+            calendar.DisplayDate = temp;
         }
     }
 }
