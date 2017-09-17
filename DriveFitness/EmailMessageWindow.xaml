@@ -28,13 +28,13 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-
-                            <CheckBox Grid.Column="0" VerticalContentAlignment="Center" 
-                                      Content="{Binding ClientData}"
-                                      IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      >
-                                
-                            </CheckBox>
+                            <StackPanel>
+                                <CheckBox Grid.Column="0" VerticalContentAlignment="Center" 
+                                          Content="{Binding ClientData}"
+                                          IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          />
+                                <TextBlock Text="{Binding ClientData.ClientEmail}" FontSize="12" HorizontalAlignment="Right"/>
+                            </StackPanel>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
