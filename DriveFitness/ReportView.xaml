@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DriveFitness"
         mc:Ignorable="d"
-        Title="Отчет посещаемости" Height="450" Width="650" FontSize="16">
+        Title="Отчет посещаемости" Height="450" Width="650" FontSize="16" Background="{DynamicResource BackGroundGradient(PB)}" Icon="icons/fitness1.ico">
     <StackPanel>
-        <Expander Header="Формирование отчета" IsExpanded="True" Margin="3">
+        <Expander Header="Формирование отчета" IsExpanded="True" Margin="3" Foreground="{DynamicResource YellowTextForegroundBrush}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -31,6 +31,6 @@
                 <Button Grid.Column="3" Grid.Row="2" Margin="3" Command="{Binding ExcelReportCommand}">Отравить в Excel</Button>
             </Grid>
         </Expander>
-        <DataGrid IsReadOnly="True" ItemsSource="{Binding Data, UpdateSourceTrigger=PropertyChanged}" CanUserAddRows="False" CanUserDeleteRows="False" IsSynchronizedWithCurrentItem="True"></DataGrid>
+        <DataGrid IsReadOnly="True" ItemsSource="{Binding Data, UpdateSourceTrigger=PropertyChanged}" CanUserAddRows="False" CanUserDeleteRows="False" IsSynchronizedWithCurrentItem="True" BorderBrush="#FFDD60F9" Background="#FFF5D9FB"></DataGrid>
     </StackPanel>
 </Window>

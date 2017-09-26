@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DriveFitness"
         mc:Ignorable="d"
-        Title="Учет посещения клиентов" Height="400" Width="600" FontSize="16" WindowStartupLocation="CenterScreen">
+        Title="Учет посещения клиентов" Height="400" Width="600" FontSize="16" WindowStartupLocation="CenterScreen" Background="{DynamicResource BackGroundGradient(PB)}" Icon="icons/fitness1.ico">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.4*"/>
@@ -25,9 +25,9 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Column="0" Grid.Row="0" Margin="3">Оплата:</TextBlock>
-            <TextBox Grid.Column="1" Grid.Row="0" Margin="3" Text="{Binding AttendancePrice}"></TextBox>
-            <TextBlock Grid.Column="0" Grid.Row="1" Margin="3">Дата:</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="0" Margin="3" Foreground="{DynamicResource YellowTextForegroundBrush}">Оплата:</TextBlock>
+            <TextBox Grid.Column="1" Grid.Row="0" Margin="3" Text="{Binding AttendancePrice}" Background="#BFFFFFFF"></TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="1" Margin="3" Foreground="{DynamicResource YellowTextForegroundBrush}">Дата:</TextBlock>
             <DatePicker Grid.Column="1" Grid.Row="1" Margin="3" SelectedDate="{Binding AttendanceDate}"></DatePicker>
         </Grid>
         <Grid Grid.Column="0" Grid.Row="1">
@@ -36,11 +36,11 @@
                     <RowDefinition Height="0.15*"/>
                     <RowDefinition Height="0.85*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Margin="3">Выберите устройство:</TextBlock>
+                <TextBlock Grid.Row="0" Margin="3" Foreground="{DynamicResource YellowTextForegroundBrush}">Выберите устройство:</TextBlock>
                 <ListBox 
                     ItemsSource="{Binding VideoDeviceManager.Devices, UpdateSourceTrigger=PropertyChanged}" 
                     SelectedItem="{Binding VideoDeviceManager.SelectedDevice, UpdateSourceTrigger=PropertyChanged}"
-                    Grid.Row="1" Margin="3">
+                    Grid.Row="1" Margin="3" Background="#BFFFFFFF">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Name}"></TextBlock>
@@ -58,9 +58,9 @@
             <Image Source="{Binding VideoDeviceManager.CameraImage, UpdateSourceTrigger=PropertyChanged}"></Image>
         </Border>
         <StackPanel Grid.Column="1" Grid.Row="2">
-            
-            <TextBlock Margin="3">Результат сканирования:</TextBlock>
-            <TextBox Margin="3" Text="{Binding VideoDeviceManager.ScannedResult}"></TextBox>
+
+            <TextBlock Margin="3" Foreground="{DynamicResource YellowTextForegroundBrush}">Результат сканирования:</TextBlock>
+            <TextBox Margin="3" Text="{Binding VideoDeviceManager.ScannedResult}" Background="#BFFFFFFF"></TextBox>
         </StackPanel>
     </Grid>
 </Window>

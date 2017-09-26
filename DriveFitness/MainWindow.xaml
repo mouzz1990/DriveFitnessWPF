@@ -1,29 +1,221 @@
-﻿<Window x:Class="DriveFitness.MainWindow"
+﻿<Window x:Name="window" x:Class="DriveFitness.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DriveFitness"
         mc:Ignorable="d"
-        Title="Студия Drive" Height="300" Width="300" FontSize="16" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="ToolWindow"
+        Title="Студия Drive" Height="320" Width="300" FontSize="16" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Background="{DynamicResource BackGroundGradient(PB)}"
+        MouseLeftButtonDown="window_MouseLeftButtonDown" Icon="icons/fitness1.ico"
         >
+    <Window.Resources>
+        <ControlTemplate x:Key="MenuItemControlTemplate1" TargetType="{x:Type MenuItem}">
+            <Border x:Name="templateRoot" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                <Grid Margin="-1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MinWidth="22" SharedSizeGroup="MenuItemIconColumnGroup" Width="Auto"/>
+                        <ColumnDefinition Width="13"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition SharedSizeGroup="MenuItemIGTColumnGroup" Width="Auto"/>
+                        <ColumnDefinition Width="20"/>
+                    </Grid.ColumnDefinitions>
+                    <ContentPresenter x:Name="Icon" Content="{TemplateBinding Icon}" ContentSource="Icon" HorizontalAlignment="Center" Height="16" Margin="3" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" Width="16"/>
+                    <Border x:Name="GlyphPanel" BorderBrush="#FF26A0DA" BorderThickness="1" Background="#3D26A0DA" ClipToBounds="False" HorizontalAlignment="Center" Height="22" Margin="-1,0,0,0" Visibility="Hidden" VerticalAlignment="Center" Width="22">
+                        <Path x:Name="Glyph" Data="F1M10,1.2L4.7,9.1 4.5,9.1 0,5.2 1.3,3.5 4.3,6.1 8.3,0 10,1.2z" Fill="#FF212121" FlowDirection="LeftToRight" Height="11" Width="10"/>
+                    </Border>
+                    <ContentPresenter x:Name="menuHeaderContainer" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" Grid.Column="2" ContentStringFormat="{TemplateBinding HeaderStringFormat}" ContentSource="Header" HorizontalAlignment="Left" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="menuGestureText" Grid.Column="4" Margin="{TemplateBinding Padding}" Opacity="0.7" Text="{TemplateBinding InputGestureText}" VerticalAlignment="Center"/>
+                </Grid>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Icon" Value="{x:Null}">
+                    <Setter Property="Visibility" TargetName="Icon" Value="Collapsed"/>
+                </Trigger>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Visibility" TargetName="GlyphPanel" Value="Visible"/>
+                    <Setter Property="Visibility" TargetName="Icon" Value="Collapsed"/>
+                </Trigger>
+                <Trigger Property="IsHighlighted" Value="True">
+                    <Setter Property="Background" TargetName="templateRoot" Value="#BF8014B2"/>
+                    <Setter Property="BorderBrush" TargetName="templateRoot" Value="#FFEC98FF"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="#FF707070"/>
+                    <Setter Property="Fill" TargetName="Glyph" Value="#FF707070"/>
+                </Trigger>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsHighlighted" Value="True"/>
+                        <Condition Property="IsEnabled" Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Background" TargetName="templateRoot" Value="#0A000000"/>
+                    <Setter Property="BorderBrush" TargetName="templateRoot" Value="#21000000"/>
+                    <Setter Property="Background" TargetName="GlyphPanel" Value="#3D26A0DA"/>
+                </MultiTrigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <Storyboard x:Key="StartWindowStoryboardLetters">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="path_Copy1">
+                <EasingDoubleKeyFrame KeyTime="0" Value="321.104"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="path_Copy2">
+                <EasingDoubleKeyFrame KeyTime="0" Value="321.104"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="path_Copy3">
+                <EasingDoubleKeyFrame KeyTime="0" Value="321.104"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="path_Copy5">
+                <EasingDoubleKeyFrame KeyTime="0" Value="321.104"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="path_Copy6">
+                <EasingDoubleKeyFrame KeyTime="0" Value="321.104"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="path_Copy8">
+                <EasingDoubleKeyFrame KeyTime="0" Value="321.104">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="DriveStudioMouseEnter">
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="path_Copy1">
+                <EasingColorKeyFrame KeyTime="0" Value="#FFFFF300"/>
+                <EasingColorKeyFrame KeyTime="0:0:0.3" Value="Red"/>
+                <EasingColorKeyFrame KeyTime="0:0:1" Value="#FFFFF300"/>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="path_Copy2">
+                <EasingColorKeyFrame KeyTime="0" Value="#FFFFF300"/>
+                <EasingColorKeyFrame KeyTime="0:0:0.4" Value="Red"/>
+                <EasingColorKeyFrame KeyTime="0:0:1" Value="#FFFFF300"/>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="path_Copy3">
+                <EasingColorKeyFrame KeyTime="0" Value="#FFFFF300"/>
+                <EasingColorKeyFrame KeyTime="0:0:0.5" Value="Red"/>
+                <EasingColorKeyFrame KeyTime="0:0:1" Value="#FFFFF300"/>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="path_Copy5">
+                <EasingColorKeyFrame KeyTime="0" Value="#FFFFF300"/>
+                <EasingColorKeyFrame KeyTime="0:0:0.6" Value="Red"/>
+                <EasingColorKeyFrame KeyTime="0:0:1" Value="#FFFFF300"/>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="path_Copy6">
+                <EasingColorKeyFrame KeyTime="0" Value="#FFFFF300"/>
+                <EasingColorKeyFrame KeyTime="0:0:0.7" Value="Red"/>
+                <EasingColorKeyFrame KeyTime="0:0:1" Value="#FFFFF300"/>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="path_Copy8">
+                <EasingColorKeyFrame KeyTime="0" Value="#FFFFF300"/>
+                <EasingColorKeyFrame KeyTime="0:0:0.8" Value="Red"/>
+                <EasingColorKeyFrame KeyTime="0:0:1.3" Value="#FFFFF300"/>
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard x:Name="StartWindowStoryboardLetters_BeginStoryboard" Storyboard="{StaticResource StartWindowStoryboardLetters}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="grid">
+            <BeginStoryboard x:Name="DriveStudioMouseEnter_BeginStoryboard" Storyboard="{StaticResource DriveStudioMouseEnter}"/>
+        </EventTrigger>
+    </Window.Triggers>
     <Grid>
         <StackPanel Margin="5">
-            <Menu>
-                <Menu.Background>
-                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                        <GradientStop Color="White"/>
-                        <GradientStop Color="White" Offset="1"/>
-                    </LinearGradientBrush>
-                </Menu.Background>
-                <MenuItem Header="Меню">
-                    <MenuItem Header="Выход" Name="miClose" Click="miClose_Click"></MenuItem>
+            <Menu Background="#00000000" Foreground="White">
+                <MenuItem Header="Меню" Foreground="{DynamicResource YellowTextForegroundBrush}" Background="#3F8014B2" Template="{DynamicResource MenuItemControlTemplate}">
+                    <MenuItem Header="Выход" Name="miClose" Click="miClose_Click" Background="#FF42035F" Foreground="{DynamicResource YellowTextForegroundBrush}" Template="{DynamicResource MenuItemControlTemplate1}">
+                        <MenuItem.Icon>
+                            <Image Source="images/power.png"></Image>
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </MenuItem>
-                <MenuItem Header="Связь с клиентами">
-                    <MenuItem Header="Отправить Email сообщение" Name="miEmail" Click="miEmail_Click"></MenuItem>
+                <MenuItem Header="Связь с клиентами" Foreground="{DynamicResource YellowTextForegroundBrush}" Background="#3F8014B2" Template="{DynamicResource MenuItemControlTemplate}">
+                    <MenuItem Header="Отправить Email сообщение" Name="miEmail" Click="miEmail_Click" Background="#FF3C0357" Foreground="{DynamicResource YellowTextForegroundBrush}" Template="{DynamicResource MenuItemControlTemplate1}">
+                        <MenuItem.Icon>
+                            <Image Source="images/email.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </MenuItem>
             </Menu>
-            <Button Name="BtnAttendance" Margin="5" Height="50" Click="BtnAttendance_Click">Учет посещения клиентов</Button>
+            <Grid x:Name="grid" Height="33.856" Margin="10,5,0,5">
+                <Path x:Name="path_Copy1" Fill="#FFFFF300" HorizontalAlignment="Left" Width="28.837" Stroke="Black" Margin="0,1.748,0,0.533" Data="M7.5689997,6.1079998 L7.5689997,25.488998 11.070609,25.488998 C14.134516,25.488998 16.538223,24.593508 18.281734,22.802525 20.025246,21.011541 20.896999,18.573814 20.896999,15.489342 20.896999,12.57544 20.032539,10.283408 18.303619,8.613245 16.574699,6.9430809 14.149106,6.1079998 11.026839,6.1079998 z M0.5,0.5 L11.617292,0.5 C22.763761,0.50000244 28.336998,5.467907 28.337,15.403713 28.336998,20.16551 26.816029,23.967842 23.774094,26.810705 20.732159,29.65357 16.67989,31.075001 11.617292,31.075001 L0.5,31.075001 z" RenderTransformOrigin="4.44817428042743,0.48075498441613" Stretch="Fill">
+                    <Path.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Path.RenderTransform>
+                </Path>
+                <Path x:Name="path_Copy2" Data="M13.411765,0.50000001 C14.141239,0.50000001 14.710231,0.58528428 15.118744,0.75585404 L15.118744,6.9603298 C14.287135,6.5196916 13.316929,6.2993718 12.208126,6.2993718 10.705401,6.2993718 9.5309418,6.8359561 8.6847465,7.9091234 7.8385525,8.982292 7.4154498,10.442796 7.4154548,12.290635 L7.4154548,22.716711 0.5,22.716711 0.5,0.88378167 7.4154548,0.88378167 7.4154548,4.9348138 7.5029928,4.9348138 C8.5972097,1.9782713 10.5668,0.50000001 13.411765,0.50000001 z" Fill="#FFFFF300" HorizontalAlignment="Left" RenderTransformOrigin="6.14032085502985,0.293828964622951" Stretch="Fill" Width="15.619" Stroke="Black" Margin="32.367,10.106,0,0.533">
+                    <Path.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Path.RenderTransform>
+                </Path>
+                <Path x:Name="path_Copy3" Fill="#FFFFF300" HorizontalAlignment="Left" Stroke="Black" Data="M0.98100007,10.883001 L7.8969999,10.883001 7.8969999,32.716001 0.98100007,32.716001 z M4.4830003,0.5 C5.6647697,0.50000286 6.6240454,0.81980324 7.3608266,1.4594011 8.0976086,2.0990038 8.4660001,2.9233761 8.4660001,3.9325199 8.4660001,4.9558797 8.0976086,5.7944674 7.3608266,6.4482799 6.6240454,7.1020939 5.6647697,7.4290001 4.4830003,7.4290004 3.3158208,7.4290001 2.3601927,7.091434 1.6161163,6.4163001 0.8720383,5.7411666 0.50000001,4.91324 0.5,3.9325199 0.50000001,2.9233761 0.8720383,2.0990038 1.6161163,1.4594011 2.3601927,0.81980324 3.3158208,0.50000286&#xD;&#xA;4.4830003,0.5 z" Margin="49.897,0.107,0,0.533" RenderTransformOrigin="8.74189706358865,0.506411989732022" Stretch="Fill" Width="8.966">
+                    <Path.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Path.RenderTransform>
+                </Path>
+                <Path x:Name="path_Copy5" Data="M0.49999999,0.50000011 L7.8969082,0.50000011 11.792323,13.95369 C12.230009,15.474603 12.485326,16.768092 12.558274,17.834152 L12.645812,17.834152 C12.747939,16.824948 13.017846,15.574103 13.455532,14.081618 L17.438488,0.50000011 24.660322,0.50000011 16.322386,22.332929 8.4440179,22.332929 z" Fill="#FFFFF300" HorizontalAlignment="Left" RenderTransformOrigin="2.70189006989025,0.281959469151777" Stretch="Fill" Width="25.16" Stroke="Black" Margin="60.291,10.49,0,0.533">
+                    <Path.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Path.RenderTransform>
+                </Path>
+                <Path x:Name="path_Copy6" Fill="#FFFFF300" HorizontalAlignment="Left" Stroke="Black" Data="M11.660774,5.041 C10.552021,5.0409999 9.5928035,5.4887764 8.7831229,6.3843322 7.9734406,7.2798865 7.4810665,8.395776 7.3060001,9.7319999 L15.556,9.7319999 C15.556,6.604666 14.257592,5.0409999 11.660774,5.041 z M11.705024,0.5 C14.973155,0.5 17.500851,1.4452412 19.28811,3.3357239 21.07537,5.2262052 21.968999,7.7918606 21.968999,11.032687 L21.968999,13.86841 7.349946,13.86841 C7.5833841,17.038167 9.633261,18.623044 13.499578,18.623044 15.965267,18.623044 18.131863,18.054478 19.999367,16.917346 L19.999367,21.778587 C17.927604,22.858861 15.235773,23.399 11.923872,23.399 8.3055826,23.399 5.4970311,22.421777 3.4982193,20.46733 1.4994063,18.512885 0.5,15.787322 0.5,12.290639 0.5,8.6660309 1.5796504,5.7947713 3.7389519,3.6768633 5.8982531,1.5589545 8.5536109,0.5 11.705024,0.5 z" Margin="85.633,9.957,0,0" RenderTransformOrigin="1.89759120971536,0.291673769863796" Stretch="Fill" Width="22.469">
+                    <Path.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Path.RenderTransform>
+                </Path>
+                <Path x:Name="path_Copy8" Fill="#FFFFF300" HorizontalAlignment="Left" Stroke="Black" Data="M121.30358,15.616999 C119.66959,15.616999 118.40032,16.164265 117.4958,17.258795 116.59126,18.353328 116.139,19.902728 116.139,21.906998 116.139,26.100333 117.87512,28.196997 121.34736,28.196997 124.65912,28.196997 126.315,26.043473 126.315,21.736422 126.315,17.656808 124.64452,15.616999 121.30358,15.616999 z M80.532188,15.616999 C79.00029,15.617 77.803947,16.203357 76.943169,17.376069 76.08239,18.548781 75.652,20.158595 75.652,22.20551 75.652,24.124491 76.067795,25.60282 76.899399,26.640492 77.731003,27.678164 78.883568,28.197001 80.357109,28.197001 81.757698,28.197001 82.899338,27.649735 83.781998,26.555203 84.664673,25.460673 85.106003,24.010775 85.106003,22.20551 L85.106003,20.563712 C85.106003,19.142243 84.682899,17.962424 83.836716,17.024257 82.990517,16.086085 81.889008,15.617 80.532188,15.616999 z M42.497002,10.990001 L49.390694,10.990001 49.390694,23.569543 C49.390694,26.654019 50.645416,28.196257 53.154858,28.196257 54.395004,28.196257 55.387104,27.773385 56.131191,26.927642 56.875263,26.081898 57.247307,24.934104 57.247307,23.484257 L57.247307,10.990001 64.140999,10.990001 64.140999,32.82297 57.247307,32.82297 57.247307,29.496854 57.137882,29.496854 C55.430878,32.069619 53.147564,33.356 50.287964,33.356 45.093979,33.356 42.497002,30.292847 42.497002,24.166537 z M97.712997,10.99 L104.628,10.99 104.628,32.823001 97.712997,32.823001 z M121.43496,10.457 C125.15532,10.457 128.07324,11.476866 130.18875,13.516597 132.30424,15.556329 133.362,18.253463 133.362,21.608002 133.362,25.232611 132.27142,28.096762 130.09027,30.200457 127.90912,32.30415 124.92188,33.356 121.12858,33.356 117.39363,33.356 114.45746,32.336133 112.32007,30.296403 110.18269,28.256671 109.114,25.488465 109.114,21.991784 109.114,18.38139 110.22281,15.556329 112.44044,13.516597 114.65806,11.476866 117.65624,10.457&#xD;&#xA;121.43496,10.457 z M33.917526,4.3590007 L33.917526,10.989933 38.951,10.989933 38.951,15.9578 33.917526,15.9578 33.917526,24.784829 C33.917526,27.059104 34.843975,28.19624 36.696877,28.19624 37.426369,28.19624 38.177734,27.990134 38.951,27.577922 L38.951,32.567113 C37.929707,33.093037 36.390495,33.356 34.333328,33.356 29.460346,33.356 27.023855,30.889834 27.023855,25.957501 L27.023855,15.9578 23.391001,15.9578 23.391001,10.989933 27.023855,10.989933 27.023855,6.2779219 z M12.820778,1.7370016 C14.454795,1.7370027 15.902788,1.8329463 17.164772,2.0248345 18.426767,2.2167248 19.590273,2.5116647 20.655291,2.9096518 L20.655291,9.2846229 C20.130077,8.9292738 19.557444,8.6165664 18.937387,8.3465021 18.317333,8.0764353 17.679052,7.8525651 17.022533,7.6748912 16.366003,7.4972155 15.71313,7.3657367 15.063893,7.280452 14.414669,7.1951687 13.798262,7.1525271 13.214687,7.1525276 12.412269,7.1525271 11.682794,7.2271497 11.026274,7.3763969 10.369755,7.5256436 9.8153467,7.7352993 9.3630791,8.0053651 8.9108057,8.2754314 8.5606594,8.5987999 8.3126392,8.9754698 8.0646152,9.3521402 7.9406052,9.775007&#xD;&#xA;7.9406056,10.244069 7.9406052,10.755771 8.0792065,11.214172 8.356411,11.61927 8.6336021,12.024368 9.0275211,12.408147 9.5381546,12.770602 10.048779,13.133059 10.668833,13.488409 11.398307,13.836653 12.127769,14.184893 12.952073,14.543797 13.87122,14.913359 15.125905,15.425063 16.252934,15.968748 17.252316,16.544416 18.251686,17.120081 19.10882,17.770371 19.823704,18.495282 20.538574,19.220196 21.085688,20.048161 21.465004,20.979176 21.844332,21.910191&#xD;&#xA;22.034,22.99401 22.034,24.230624 22.034,25.936303 21.702082,27.368361 21.038267,28.526801 20.374451,29.685241 19.473558,30.623362 18.335573,31.34117 17.197601,32.058974 15.873606,32.574231 14.363602,32.886939 12.853597,33.199645 11.259705,33.356 9.5819178,33.356 7.8603668,33.356 6.222703,33.21386 4.6689262,32.929581 3.11516,32.645303 1.7692786,32.21888 0.63130617,31.650323 L0.63130617,24.827613 C1.9005851,25.865231 3.2792838,26.643447 4.7674131,27.162257 6.2555332,27.681067 7.7582421,27.940474 9.2755442,27.940474 10.165494,27.940474 10.942389,27.862296 11.606204,27.705943 12.270019,27.54959 12.824427,27.332825 13.269401,27.055653 13.714376,26.778481 14.046285,26.45156 14.265124,26.074889 14.483964,25.698218 14.593384,25.289567 14.593383,24.848931 14.593384,24.251946 14.418317,23.71892 14.068172,23.24986 13.718024,22.780799 13.24022,22.347272&#xD;&#xA;12.634756,21.949281 12.029293,21.551289 11.310761,21.167512 10.479175,20.797948 9.6475763,20.428385 8.7503176,20.051715 7.7874227,19.667937 5.336401,18.672957 3.5090668,17.457663 2.3054471,16.022053 1.1018158,14.586439 0.5,12.852333 0.5,10.819735 0.5,9.2277677 0.82825977,7.8596728 1.4847912,6.7154453 2.1413114,5.5712216 3.0349095,4.6295457 4.1655979,3.89042 5.2962751,3.1512941 6.6056795,2.6076084 8.0937986,2.2593634 9.5819159,1.9111243&#xD;&#xA;11.15758,1.7370027 12.820778,1.7370016 z M101.215,0.60700017 C102.39677,0.60700268 103.35605,0.92680281 104.09282,1.5664024 104.82961,2.2060033 105.198,3.0303761 105.198,4.0395205 105.198,5.06288 104.82961,5.9014671 104.09282,6.5552795 103.35605,7.2090938 102.39677,7.5360005 101.215,7.5360005 100.04782,7.5360005 99.092194,7.1984336 98.348106,6.5232999 97.604042,5.8481662 97.232002,5.0202403 97.232002,4.0395205 97.232002,3.0303761 97.604042,2.2060033 98.348106,1.5664024 99.092194,0.92680281 100.04782,0.60700268&#xD;&#xA;101.215,0.60700017 z M84.975563,0.5 L91.890999,0.5 91.890999,32.822968 84.975563,32.822968 84.975563,29.816678 84.888031,29.816678 C83.312355,32.176224 80.999916,33.356 77.950706,33.356 75.149513,33.356 72.895432,32.392991 71.188461,30.466975 69.481491,28.540959 68.627998,25.85093 68.627998,22.396893 68.627998,18.7865 69.569023,15.893922 71.451073,13.719157 73.333122,11.544391 75.798759,10.45701 78.847954,10.457008 81.736694,10.45701 83.750038,11.466214 84.888031,13.484625 L84.975563,13.484625 z" Margin="122.681,0,0,0" RenderTransformOrigin="0.0417610616542759,0.500005684577278" Stretch="Fill" Width="133.862">
+                    <Path.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Path.RenderTransform>
+                </Path>
+            </Grid>
+            <Button Name="BtnAttendance" Margin="5" Height="50" Click="BtnAttendance_Click" Background="#FFDDDDDD">Учет посещения клиентов</Button>
             <Button Name="BtnGroups" Margin="5" Height="50" Click="BtnGroups_Click">Группы и расписание</Button>
             <Button Name="BtnClients" Margin="5" Height="50" Click="BtnClients_Click">Клиенты и абонементы</Button>
             <Button Name="BtnReport"  Margin="5" Height="50" Click="BtnReport_Click">Финансовый отчет</Button>

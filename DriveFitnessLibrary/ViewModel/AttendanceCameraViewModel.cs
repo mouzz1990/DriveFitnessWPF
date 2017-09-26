@@ -96,7 +96,13 @@ namespace DriveFitnessLibrary.ViewModel
                 },
                 (obj) =>
                 {
-                    return !VideoDeviceManager.IsScanStarted || VideoDeviceManager.Devices.Count == 0;
+                    if (VideoDeviceManager.IsScanStarted)
+                        return false;
+
+                    if (VideoDeviceManager.Devices.Count == 0)
+                        return false;
+
+                    return true;
                 }
                 ));
             }

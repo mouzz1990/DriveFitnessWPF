@@ -5,23 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DriveFitness"
         mc:Ignorable="d"
-        Title="Отправка Email сообщений" Height="450" Width="600" FontSize="16" WindowStartupLocation="CenterScreen">
+        Title="Отправка Email сообщений" Height="450" Width="600" FontSize="16" WindowStartupLocation="CenterScreen" Background="{DynamicResource BackGroundGradient(PB)}" Icon="icons/fitness1.ico">
+    <Window.Resources>
+        <SolidColorBrush x:Key="YellowTextBrush" Color="#FFFFF300"/>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="1.5*"/>
         </Grid.ColumnDefinitions>
-        
+
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
                 <RowDefinition/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
-            
-            <ComboBox Grid.Row="0" Margin="3" ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
-            <ListBox Grid.Row="1" Margin="3" ItemsSource="{Binding Clients, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedClient,UpdateSourceTrigger=PropertyChanged}">
+
+            <ComboBox Grid.Row="0" Margin="3" ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup, UpdateSourceTrigger=PropertyChanged}" Background="#C0FFFFFF"/>
+            <ListBox Grid.Row="1" Margin="3" ItemsSource="{Binding Clients, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedClient,UpdateSourceTrigger=PropertyChanged}" Background="#BFFFFFFF">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -40,7 +43,7 @@
                 </ListBox.ItemTemplate>
             </ListBox>
             <Button Grid.Row="2" Margin="3" Command="{Binding CheckAllCommand}">Выбрать всех</Button>
-            
+
         </Grid>
 
         <GridSplitter Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"></GridSplitter>
@@ -53,25 +56,25 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="3">
-                    <TextBlock Margin="5" VerticalAlignment="Center">Логин:</TextBlock>
-                    <TextBox Width="230" Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <TextBlock Margin="5" VerticalAlignment="Center" Foreground="{DynamicResource YellowTextForegroundBrush}">Логин:</TextBlock>
+                    <TextBox Width="230" Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" Background="#BFFFFFFF"></TextBox>
                 </StackPanel>
-                
+
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="3">
-                    <TextBlock Margin="5" VerticalAlignment="Center">Пароль:</TextBlock>
-                    <TextBox Width="230" Text="{Binding Password}" Name="txbPassword"></TextBox>
+                    <TextBlock Margin="5" VerticalAlignment="Center" Foreground="#FFFFF300">Пароль:</TextBlock>
+                    <TextBox Width="230" Text="{Binding Password}" Name="txbPassword" Background="#BFFFFFFF"></TextBox>
                     <!--<PasswordBox Width="230" Password="{Binding Password}"></PasswordBox>-->
                 </StackPanel>
             </StackPanel>
 
             <StackPanel Grid.Row="1" Margin="3">
-                <TextBlock Margin="3">Тема сообщения:</TextBlock>
-                <TextBox Margin="3" Text="{Binding Subject, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBlock Margin="3" Foreground="{DynamicResource YellowTextForegroundBrush}">Тема сообщения:</TextBlock>
+                <TextBox Margin="3" Text="{Binding Subject, UpdateSourceTrigger=PropertyChanged}" Background="#BFFFFFFF"></TextBox>
 
-                <TextBlock Margin="3">Сообщение:</TextBlock>
+                <TextBlock Margin="3" Foreground="{DynamicResource YellowTextForegroundBrush}">Сообщение:</TextBlock>
                 <TextBox Margin="3" Height="180" VerticalScrollBarVisibility="Auto" 
                          TextWrapping="Wrap" AcceptsReturn="True"
-                         Text="{Binding MessageText, UpdateSourceTrigger=PropertyChanged}"
+                         Text="{Binding MessageText, UpdateSourceTrigger=PropertyChanged}" Background="#BFFFFFFF"
                          ></TextBox>
             </StackPanel>
 

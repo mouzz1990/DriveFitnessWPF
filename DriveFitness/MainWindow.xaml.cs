@@ -60,5 +60,10 @@ namespace DriveFitness
             EmailMessageWindow emw = new EmailMessageWindow();
             emw.Show();
         }
+
+        private void window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
     }
 }

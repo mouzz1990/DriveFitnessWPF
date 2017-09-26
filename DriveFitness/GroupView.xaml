@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DriveFitness"
         mc:Ignorable="d"
-        Title="Информация по группам" Height="450" Width="650" FontSize="16" WindowStartupLocation="CenterScreen">
+        Title="Информация по группам" Height="450" Width="660" FontSize="16" WindowStartupLocation="CenterScreen" Background="{DynamicResource BackGroundGradient(PB)}" Icon="icons/fitness1.ico">
+    <Window.Resources>
+        <Style x:Key="ListBoxStyle1" BasedOn="{StaticResource ListBoxStyle}" TargetType="{x:Type ListBox}" />
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -20,10 +23,10 @@
                 <RowDefinition/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
-            
-            <ListBox Grid.Row="0" Margin="3" ItemsSource="{Binding Groups}" 
+
+            <ListBox Grid.Row="0" Margin="5" ItemsSource="{Binding Groups}" 
                      SelectedItem="{Binding SelectedGroup}"
-                     IsEnabled="{Binding IsDataChanged, UpdateSourceTrigger=PropertyChanged}"
+                     IsEnabled="{Binding IsDataChanged, UpdateSourceTrigger=PropertyChanged}" Background="#BFFFFFFF" Style="{DynamicResource ListBoxStyle1}"
                      >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -32,27 +35,27 @@
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
-                
+
             </ListBox>
             <StackPanel Grid.Row="2" Orientation="Horizontal">
                 <Button  Width="30" Height="30" Margin="3" Command="{Binding RemoveGroupCommand}">-</Button>
                 <Button  Width="30" Height="30" Margin="3" Command="{Binding ShowNewGroupPopup}" CommandParameter="{Binding ElementName=popNewGroup}">+</Button>
             </StackPanel>
         </Grid>
-        <GridSplitter Grid.Column="1" Width="3" HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
+        <GridSplitter Grid.Column="1" Width="10" HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="#3FF9F9F9"/>
         <Grid Grid.Column="2" Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
-        <StackPanel>
-            
-            <GroupBox Header="Информация о группе" Margin="5">
+            <StackPanel>
+
+                <GroupBox Header="Информация о группе" Margin="5" Foreground="{DynamicResource YellowTextForegroundBrush}">
                     <StackPanel Margin="5">
                         <StackPanel>
                             <StackPanel DataContext="{Binding SelectedGroup, UpdateSourceTrigger=PropertyChanged}" >
                                 <TextBlock>Наименование группы:</TextBlock>
-                                <TextBox Text="{Binding GroupName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                <TextBox Text="{Binding GroupName, UpdateSourceTrigger=PropertyChanged}" Background="#BFFFFFFF"></TextBox>
                             </StackPanel>
                         </StackPanel>
                         <TextBlock Margin="0 10 0 5">Расписание занятий:</TextBlock>
@@ -66,7 +69,7 @@
                                 <RowDefinition Height="40"/>
                             </Grid.RowDefinitions>
                             <ListBox Grid.Column="0" ItemsSource="{Binding SchedulesObservable, UpdateSourceTrigger=PropertyChanged}" 
-                             SelectedItem="{Binding SelectedSchedule}">
+                             SelectedItem="{Binding SelectedSchedule}" Background="#BFFFFFFF">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
@@ -84,9 +87,9 @@
 
                             <StackPanel Grid.Column="1" Margin="5" DataContext="{Binding SelectedSchedule}">
                                 <TextBlock>День:</TextBlock>
-                                <TextBox Text="{Binding Day, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                <TextBox Text="{Binding Day, UpdateSourceTrigger=PropertyChanged}" Background="#BFFFFFFF"></TextBox>
                                 <TextBlock>Время:</TextBlock>
-                                <TextBox Text="{Binding Time, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                <TextBox Text="{Binding Time, UpdateSourceTrigger=PropertyChanged}" Background="#BFFFFFFF"></TextBox>
 
 
                             </StackPanel>
@@ -100,7 +103,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                
+
                 <Button Grid.Column="0" Margin="3" Command="{Binding DiscardChangesCommand}">Отменить</Button>
                 <Button Grid.Column="2" Margin="3" Command="{Binding SaveChangesCommand}">Сохранить</Button>
             </Grid>
@@ -113,7 +116,7 @@
                     <TextBlock Margin="5">Время:</TextBlock>
                     <TextBox Margin="5" Text="{Binding NewSchedule.Time, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     <Button Margin="5" Command="{Binding AddScheduleCommand}" CommandParameter="{Binding ElementName=popNewSchedule}">Добавить</Button>
-            </StackPanel>
+                </StackPanel>
             </Border>
         </Popup>
 

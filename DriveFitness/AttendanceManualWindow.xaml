@@ -6,8 +6,8 @@
         xmlns:helper="clr-namespace:DriveFitnessLibrary;assembly=DriveFitnessLibrary"
         xmlns:local="clr-namespace:DriveFitness"
         mc:Ignorable="d"
-        Title="Учет посещаемости клиентов" Height="400" Width="550" FontSize="16">
-    
+        Title="Учет посещаемости клиентов" Height="400" Width="560" FontSize="16" Background="{DynamicResource BackGroundGradient(PB)}" WindowStartupLocation="CenterScreen" Icon="icons/fitness1.ico">
+
     <Grid Margin="3">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.5*"/>
@@ -23,11 +23,11 @@
             <ListBox Grid.Row="1" Margin="3" 
                      ItemsSource="{Binding Clients, UpdateSourceTrigger=PropertyChanged}" 
                      SelectedItem="{Binding SelectedClient, UpdateSourceTrigger=PropertyChanged}"
-                     SelectionChanged="ListBox_SelectionChanged">
+                     SelectionChanged="ListBox_SelectionChanged" Background="#BFFFFFFF">
             </ListBox>
         </Grid>
 
-        <GridSplitter Grid.Column="1" Width="5" VerticalAlignment="Stretch" HorizontalAlignment="Center"></GridSplitter>
+        <GridSplitter Grid.Column="1" Width="10" VerticalAlignment="Stretch" HorizontalAlignment="Center" Background="#3FF9F9F9"></GridSplitter>
 
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
@@ -41,8 +41,8 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="1" Grid.Row="0" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Right">Оплата:</TextBlock>
-            <TextBox Margin="3" Grid.Column="2" Grid.Row="0" Text="{Binding AttendancePrice, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBlock Grid.Column="1" Grid.Row="0" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="{DynamicResource YellowTextForegroundBrush}">Оплата:</TextBlock>
+            <TextBox Margin="3" Grid.Column="2" Grid.Row="0" Text="{Binding AttendancePrice, UpdateSourceTrigger=PropertyChanged}" Background="#BFFFFFFF"></TextBox>
 
             <DatePicker Name="dtpVisitation" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center"
                         SelectedDate="{Binding SelectedDate, UpdateSourceTrigger=PropertyChanged}"
